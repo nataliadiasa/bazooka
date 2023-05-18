@@ -15,4 +15,8 @@ Feature: Test CRUD methods in User
         Then I receive HTTP status 201
         And I receive valid user response
 
+    Scenario: List all users
+        Given I set GET user API endpoint
+        When I send GET http request
+        Then I receive HTTP status 200
     

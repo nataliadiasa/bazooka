@@ -30,6 +30,10 @@ Given("I set POST user payload", () => {
 })
 
 When(/^I send ([\w]+) http request$/, (method) => {
+    if (method == 'GET') {
+        this.payload = null
+    }
+
     cy.request({
         method,
         url: this.endpoint,
@@ -66,4 +70,8 @@ Given("I set PUT user payload", () => {
         password: "teste",
         administrador: "true"
     }
+})
+
+Given("I set GET user API endpoint", () => {
+    this.endpoint = `https://serverest.dev/usuarios`
 })
