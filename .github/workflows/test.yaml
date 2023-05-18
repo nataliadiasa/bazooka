@@ -10,5 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3 
 
+      - name: Build image
+        run: docker build -t cy .
+
       - name: Run API tests
-        run: docker run -v $PWD:/e2e -w /e2e cypress/included:latest
+        run: docker run cy
