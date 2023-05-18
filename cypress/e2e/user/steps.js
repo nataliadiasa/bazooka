@@ -113,3 +113,7 @@ Given(/a user with email (\S+@\S+\.\S+) exists/, (email) => {
         })
     })
 })
+
+Given("I set GET user with ID API endpoint", () => {
+    this.endpoint = `https://serverest.dev/usuarios/${this.userID}`
+})

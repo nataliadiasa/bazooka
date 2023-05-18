@@ -22,6 +22,13 @@ Feature: Test CRUD methods in User
             Given I set GET user API endpoint
             When I send GET http request
             Then I receive HTTP status 200
+
+        Scenario: Get non existent user with ID
+            Given I generate random ID
+            And I set GET user with ID API endpoint
+            When I send GET http request
+            Then I receive HTTP status 400
+            
     Rule:
         Background:
             Given a user with email monkeydluffy@qa.com.br exists
@@ -32,3 +39,8 @@ Feature: Test CRUD methods in User
             And I set POST user payload
             When I send POST http request
             Then I receive HTTP status 400
+
+        Scenario: Get User with ID
+            Given I set GET user with ID API endpoint
+            When I send GET http request
+            Then I receive HTTP status 200
