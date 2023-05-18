@@ -6,3 +6,13 @@ Feature: Test CRUD methods in User
         When I send POST http request
         Then I receive HTTP status 201
         And I receive valid user response
+
+    Scenario: Update User with random email
+        Given I generate random ID 
+        And I set PUT user API endpoint
+        And I set PUT user payload
+        When I send PUT http request
+        Then I receive HTTP status 201
+        And I receive valid user response
+
+    

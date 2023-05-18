@@ -29,9 +29,9 @@ Given("I set POST user payload", () => {
     }
 })
 
-When("I send POST http request", () => {
+When(/^I send ([\w]+) http request$/, (method) => {
     cy.request({
-        method: 'POST',
+        method,
         url: this.endpoint,
         body: this.payload,
     }).then((response) => {
@@ -47,4 +47,23 @@ Then("I receive valid user response", () => {
     const { body } = this.response;
     expect(body.message).to.eq("Cadastro realizado com sucesso")
     expect(body._id).to.not.empty
+})
+
+Given("I generate random ID", () => {
+    this.userID = generateRandomString(10)
+})
+
+Given("I set PUT user API endpoint", () => {
+    this.endpoint = `https://serverest.dev/usuarios/${this.userID}`
+})
+
+Given("I set PUT user payload", () => {
+    var id = generateRandomString(20);
+
+    this.payload = {
+        nome: "Monkey D. Luffy",
+        email: `luffy-${id}@qa.com.br`,
+        password: "teste",
+        administrador: "true"
+    }
 })
