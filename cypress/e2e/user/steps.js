@@ -34,7 +34,7 @@ Given(/user email is (\S+@\S+\.\S+)/, (email) => {
     this.email = email;
 })
 
-Given("I set POST user payload", () => {
+Given(/I set ([\w]+) user payload/, () => {
     this.payload = {
         nome: "Monkey D. Luffy",
         email: this.email,
@@ -68,20 +68,6 @@ Given("I generate random ID", () => {
     this.userID = generateRandomString(10)
 })
 
-Given("I set PUT user API endpoint", () => {
-    this.endpoint = `https://serverest.dev/usuarios/${this.userID}`
-})
-
-Given("I set PUT user payload", () => {
-    var id = generateRandomString(20);
-
-    this.payload = {
-        nome: "Monkey D. Luffy",
-        email: `luffy-${id}@qa.com.br`,
-        password: "teste",
-        administrador: "true"
-    }
-})
 
 Given("I set GET user API endpoint", () => {
     this.endpoint = `https://serverest.dev/usuarios`
@@ -114,6 +100,6 @@ Given(/a user with email (\S+@\S+\.\S+) exists/, (email) => {
     })
 })
 
-Given("I set GET user with ID API endpoint", () => {
+Given("I set user with ID API endpoint", () => {
     this.endpoint = `https://serverest.dev/usuarios/${this.userID}`
 })
