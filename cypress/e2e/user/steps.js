@@ -1,4 +1,4 @@
-import { When, Then, Given } from "@badeball/cypress-cucumber-preprocessor";
+import { When, Then, Given, Before } from "@badeball/cypress-cucumber-preprocessor";
 import { expect } from "chai";
 
 const generateRandomString = (myLength) => {
@@ -12,32 +12,43 @@ const generateRandomString = (myLength) => {
     const randomString = randomArray.join("");
     return randomString;
 };
+
+Before(() => {
+    this.endpoint = null;
+    this.payload = null;
+    this.userID = null;
+    this.email = null;
+})
   
 
 Given("I set POST user API endpoint", () => {
     this.endpoint = "https://serverest.dev/usuarios"
 })
 
-Given("I set POST user payload", () => {
+Given("I generate random email", () => {
     var id = generateRandomString(20);
+    this.email = `luffy-${id}@qa.com.br`;
+})
 
+Given(/user email is (\S+@\S+\.\S+)/, (email) => {
+    this.email = email;
+})
+
+Given("I set POST user payload", () => {
     this.payload = {
         nome: "Monkey D. Luffy",
-        email: `luffy-${id}@qa.com.br`,
+        email: this.email,
         password: "teste",
         administrador: "true"
     }
 })
 
 When(/^I send ([\w]+) http request$/, (method) => {
-    if (method == 'GET') {
-        this.payload = null
-    }
-
     cy.request({
         method,
         url: this.endpoint,
         body: this.payload,
+        failOnStatusCode: false,
     }).then((response) => {
         this.response = response
     })
@@ -74,4 +85,31 @@ Given("I set PUT user payload", () => {
 
 Given("I set GET user API endpoint", () => {
     this.endpoint = `https://serverest.dev/usuarios`
+})
+
+Given(/a user with email (\S+@\S+\.\S+) exists/, (email) => {
+    cy.request("https://serverest.dev/usuarios").then((response) => {
+        const user = response.body.usuarios.find((user) => {
+            return user.email == email
+        })
+
+        if(user) {
+            this.userID = user._id;
+            return;
+        }
+
+        cy.request({
+            method: "POST",
+            url: "https://serverest.dev/usuarios",
+            body: {
+                email: email,
+                nome: "Monkey D. Luffy",
+                password: "teste",
+                administrador: "true"
+            }
+        }).then((response) => {
+            expect(response.status).to.eq(201)
+            this.userID = response.body._id;
+        })
+    })
 })
