@@ -11,5 +11,9 @@
     "@badeball/cypress-cucumber-preprocessor": "^17.1.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "chai": "^4.3.7"
+  },
+  "cypress-cucumber-preprocessor": {
+    "filterSpecs": true,
+    "omitFiltered": true
   }
 }
