@@ -14,10 +14,10 @@ jobs:
         run: docker build -t cy .
 
       - name: Run API tests
-        run: docker run cy --config videoRecording=false --env TAGS=@api-feature
+        run: docker run cy -- --config video=false --env TAGS=@api-feature
 
       - name: Run Chrome tests
-        run: docker run cy -- --config videoRecording=false --browser chrome --env TAGS=@browser-feature
+        run: docker run cy -- --config video=false --browser chrome --env TAGS=@browser-feature
 
       - name: Run Firefox tests
-        run: docker run cy -- --config videoRecording=false --browser firefox --env TAGS=@browser-feature
+        run: docker run cy -- --config video=false --browser firefox --env TAGS=@browser-feature
