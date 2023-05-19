@@ -1,3 +1,4 @@
+@browser-feature
 Feature: Login
   Rule: 
     Scenario: Non Existent User login

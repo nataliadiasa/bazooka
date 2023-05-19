@@ -1,3 +1,4 @@
+@api-feature
 Feature: Test CRUD methods in User
 
     Rule: 

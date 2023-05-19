@@ -14,10 +14,10 @@ jobs:
         run: docker build -t cy .
 
       - name: Run API tests
-        run: docker run cy
+        run: docker run cy --record false --env TAG=@api-feature
 
       - name: Run Chrome tests
-        run: docker run cy -- --browser chrome
+        run: docker run cy -- --record false --browser chrome --env TAG=@browser-feature
 
       - name: Run Firefox tests
-        run: docker run cy -- --browser firefox
+        run: docker run cy -- --record false --browser firefox --env TAG=@browser-feature
