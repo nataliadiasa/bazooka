@@ -15,3 +15,9 @@ jobs:
 
       - name: Run API tests
         run: docker run cy
+
+      - name: Run Chrome tests
+        run: docker run cy -- --browser chrome
+
+      - name: Run Firefox tests
+        run: docker run cy -- --browser firefox
